@@ -1,9 +1,11 @@
-package com.flaringapp.executor;
+package com.flaringapp.task.executor;
 
-import com.flaringapp.DataHolder;
-import com.flaringapp.FilesPool;
-import com.flaringapp.TaskThread;
+import com.flaringapp.task.DataHolder;
+import com.flaringapp.task.pool.FilesPool;
+import com.flaringapp.task.pool.FilesPoolImpl;
+import com.flaringapp.task.TaskThread;
 import com.flaringapp.monitor.ThreadMonitor;
+import com.flaringapp.task.pool.FilesPoolSynchronizer;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,7 +26,8 @@ public class TaskExecutorImpl extends BaseTaskExecutor implements TaskExecutor {
 
         DataHolder data = new DataHolder();
 
-        FilesPool pool = new FilesPool(root, threadsCount, () -> {
+        FilesPool pool = new FilesPoolImpl(root);
+        pool = new FilesPoolSynchronizer(pool, threadsCount, () -> {
             monitors.forEach(ThreadMonitor::stop);
             notifyComplete(data);
         });

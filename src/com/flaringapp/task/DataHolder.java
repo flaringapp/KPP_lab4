@@ -1,4 +1,4 @@
-package com.flaringapp;
+package com.flaringapp.task;
 
 import java.util.concurrent.atomic.AtomicLong;
 

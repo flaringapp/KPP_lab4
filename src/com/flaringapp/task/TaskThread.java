@@ -1,10 +1,13 @@
-package com.flaringapp;
+package com.flaringapp.task;
+
+import com.flaringapp.task.pool.FilesPool;
 
 import java.io.File;
 import java.util.Arrays;
 
 public class TaskThread extends Thread {
 
+    // MacOS data file
     private static final String DS_STORE = ".DS_Store";
 
     private final FilesPool pool;
@@ -17,14 +20,14 @@ public class TaskThread extends Thread {
 
     @Override
     public void run() {
-        File dir = pool.getNextAvailableDirectory();
+        File dir = pool.pollNextDirectory();
         while (dir != null) {
-            processDirectory(dir);
-            dir = pool.getNextAvailableDirectory();
+            lookupDirectory(dir);
+            dir = pool.pollNextDirectory();
         }
     }
 
-    private void processDirectory(File dir) {
+    private void lookupDirectory(File dir) {
         File[] nestedFiles = dir.listFiles();
         if (nestedFiles == null) return;
         Arrays.stream(nestedFiles)
@@ -33,15 +36,23 @@ public class TaskThread extends Thread {
 
     private void processNestedFile(File file) {
         if (file.isDirectory()) {
-            data.onNewDirectoryFound();
-            if (pool.isFull()) processDirectory(file);
-            else pool.addAvailableDirectory(file);
+            processDirectory(file);
         } else {
-            if (!file.getName().equals(DS_STORE)) {
-                data.onNewFileFound();
-            }
-
-            data.recordFileSize(file.length());
+            processSimpleFile(file);
         }
+    }
+
+    private void processDirectory(File file) {
+        data.onNewDirectoryFound();
+        if (!pool.addDirectory(file)) {
+            lookupDirectory(file);
+        }
+    }
+
+    private void processSimpleFile(File file) {
+        if (!file.getName().equals(DS_STORE)) {
+            data.onNewFileFound();
+        }
+        data.recordFileSize(file.length());
     }
 }

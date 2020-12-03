@@ -1,6 +1,6 @@
-package com.flaringapp.executor;
+package com.flaringapp.task.executor;
 
-import com.flaringapp.DataHolder;
+import com.flaringapp.task.DataHolder;
 import com.flaringapp.monitor.ThreadState;
 
 abstract class BaseTaskExecutor {
