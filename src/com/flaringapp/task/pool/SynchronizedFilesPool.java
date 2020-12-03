@@ -4,7 +4,7 @@ import com.sun.istack.internal.Nullable;
 
 import java.io.File;
 
-public class FilesPoolSynchronizer implements FilesPool {
+public class SynchronizedFilesPool implements FilesPool {
 
     private final FilesPool pool;
 
@@ -14,7 +14,7 @@ public class FilesPoolSynchronizer implements FilesPool {
     private int awaitThreadsCount = 0;
     private boolean isFinished = false;
 
-    public FilesPoolSynchronizer(FilesPool pool, int threadsCount, Runnable completeCallback) {
+    public SynchronizedFilesPool(FilesPool pool, int threadsCount, Runnable completeCallback) {
         this.pool = pool;
         this.threadsCount = threadsCount;
         this.completeCallback = completeCallback;
