@@ -18,18 +18,21 @@ public class AppNavigator {
 
     public void navigateTo(Navigatable screen) {
         if (!stack.empty()) {
-            stack.peek().close();
+            stack.peek().hide();
         }
         stack.add(screen);
-        screen.open();
+        screen.onCreate();
+        screen.show();
     }
 
     public void navigateBack() {
         if (stack.empty()) return;
-        stack.pop().close();
+        Navigatable currentScreen = stack.pop();
+        currentScreen.hide();
+        currentScreen.onDestroy();
 
         if (!stack.empty()) {
-            stack.peek().open();
+            stack.peek().show();
         }
     }
 }

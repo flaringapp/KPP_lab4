@@ -5,35 +5,59 @@ import com.flaringapp.presentation.Navigatable;
 
 public abstract class BaseView implements Navigatable {
 
-    private boolean isOpened = false;
+    private boolean isCreated = false;
 
     private boolean isInitialized = false;
 
+    private boolean isShown = false;
+
     @Override
-    public void open() {
-        if (isOpened) {
+    public void onCreate() {
+        if (isCreated) {
             throw new IllegalStateException(
-                    getClass().getSimpleName() + " cannot be opened because it's already opened"
+                    getClass().getSimpleName() + " cannot be created because it's already created"
             );
         }
         if (!isInitialized) {
             init();
             isInitialized = true;
         }
-        isOpened = true;
+        isCreated = true;
     }
 
     @Override
-    public void close() {
-        if (!isOpened) {
+    public void onDestroy() {
+        if (!isCreated) {
             throw new IllegalStateException(
-                    getClass().getSimpleName() + " cannot be closed because it's not opened"
+                    getClass().getSimpleName() + " cannot be destroyed because it's not created"
             );
         }
-        isOpened = false;
+        isCreated = false;
+        release();
+    }
+
+    @Override
+    public void show() {
+        if (!isCreated) {
+            throw new IllegalStateException(
+                    getClass().getSimpleName() + " cannot be shown because it's not created"
+            );
+        };
+    }
+
+    @Override
+    public void hide() {
+        if (!isCreated) {
+            throw new IllegalStateException(
+                    getClass().getSimpleName() + " cannot be shown because it's not created"
+            );
+        }
     }
 
     protected void init() {
+    }
+
+    protected void release() {
     }
 
     protected AppNavigator getNavigator() {

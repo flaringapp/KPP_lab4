@@ -1,8 +1,9 @@
 package com.flaringapp.presentation;
 
 public interface Navigatable {
+    void onCreate();
+    void onDestroy();
 
-    void open();
-    void close();
-
+    void show();
+    void hide();
 }

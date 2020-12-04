@@ -3,6 +3,7 @@ package com.flaringapp.presentation.screens.threadCount;
 import com.flaringapp.app.Constants;
 import com.flaringapp.presentation.base.BaseView;
 import com.flaringapp.presentation.screens.rootPicker.RootPickerView;
+import com.flaringapp.presentation.utils.AppFonts;
 import com.flaringapp.presentation.utils.LimitDocumentFilter;
 import com.flaringapp.presentation.views.JNumberTextField;
 
@@ -15,42 +16,49 @@ import java.awt.*;
 
 public class ThreadCountView extends BaseView {
 
-    private JFrame screen;
+    private JFrame frame;
 
     private JTextField input;
     private JButton nextButton;
 
     @Override
-    public void open() {
-        super.open();
-        screen.setVisible(true);
+    public void show() {
+        super.show();
+        frame.setVisible(true);
         updateNextButton();
     }
 
     @Override
-    public void close() {
-        super.close();
-        screen.setVisible(false);
+    public void hide() {
+        super.hide();
+        frame.setVisible(false);
     }
 
     @Override
     protected void init() {
-        screen = new JFrame();
-        screen.setTitle(Constants.APP_NAME);
-        screen.setResizable(false);
+        frame = new JFrame();
+        frame.setTitle(Constants.APP_NAME);
+        frame.setResizable(false);
 
-        createUI(screen);
+        createUI(frame);
 
-        screen.pack();
+        frame.pack();
 
-        screen.setLocationRelativeTo(null);
-        screen.toFront();
+        frame.setLocationRelativeTo(null);
+        frame.toFront();
+    }
+
+    @Override
+    protected void release() {
+        super.release();
+        frame = null;
+        input = null;
+        nextButton = null;
     }
 
     private void createUI(JFrame frame) {
         JPanel panel = new JPanel();
-        BoxLayout layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-        panel.setLayout(layout);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         panel.add(createTitle());
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -66,7 +74,7 @@ public class ThreadCountView extends BaseView {
     private JLabel createTitle() {
         JLabel title = new JLabel("Enter threads count:");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22));
+        title.setFont(AppFonts.title);
         return title;
     }
 
@@ -81,7 +89,7 @@ public class ThreadCountView extends BaseView {
     private JButton createSubmitButton() {
         nextButton = new JButton("Next");
         nextButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        nextButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
+        nextButton.setFont(AppFonts.button);
         nextButton.addActionListener(e -> openRootPickerScreen());
         return nextButton;
     }
