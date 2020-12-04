@@ -1,6 +1,7 @@
 package com.flaringapp.presentation.screens.threadCount;
 
 import com.flaringapp.app.Constants;
+import com.flaringapp.data.TaskParams;
 import com.flaringapp.presentation.base.BaseView;
 import com.flaringapp.presentation.screens.rootPicker.RootPickerView;
 import com.flaringapp.presentation.utils.AppFonts;
@@ -18,7 +19,7 @@ public class ThreadCountView extends BaseView {
 
     private JFrame frame;
 
-    private JTextField input;
+    private JTextField threadCountInput;
     private JButton nextButton;
 
     @Override
@@ -39,6 +40,7 @@ public class ThreadCountView extends BaseView {
         frame = new JFrame();
         frame.setTitle(Constants.APP_NAME);
         frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         createUI(frame);
 
@@ -52,7 +54,7 @@ public class ThreadCountView extends BaseView {
     protected void release() {
         super.release();
         frame = null;
-        input = null;
+        threadCountInput = null;
         nextButton = null;
     }
 
@@ -79,27 +81,31 @@ public class ThreadCountView extends BaseView {
     }
 
     private JTextField createInput() {
-        input = new JNumberTextField(3);
+        JTextField input = new JNumberTextField(3);
         input.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 16));
         input.getDocument().addDocumentListener(new ThreadCountTextChangeListener());
         ((AbstractDocument) input.getDocument()).setDocumentFilter(new LimitDocumentFilter(2));
+        threadCountInput = input;
         return input;
     }
 
     private JButton createSubmitButton() {
-        nextButton = new JButton("Next");
-        nextButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        nextButton.setFont(AppFonts.button);
-        nextButton.addActionListener(e -> openRootPickerScreen());
-        return nextButton;
+        JButton button = new JButton("Next");
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setFont(AppFonts.button);
+        button.addActionListener(e -> openRootPickerScreen());
+        nextButton = button;
+        return button;
     }
 
     private void openRootPickerScreen() {
-        getNavigator().navigateTo(new RootPickerView());
+        TaskParams params = new TaskParams();
+        params.setThreadsCount(Integer.parseInt(threadCountInput.getText()));
+        getNavigator().navigateTo(new RootPickerView(params));
     }
 
     private void updateNextButton() {
-        nextButton.setEnabled(!input.getText().isEmpty());
+        nextButton.setEnabled(!threadCountInput.getText().isEmpty());
     }
 
     private class ThreadCountTextChangeListener implements DocumentListener {

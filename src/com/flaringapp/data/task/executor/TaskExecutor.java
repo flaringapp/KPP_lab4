@@ -1,9 +1,9 @@
 package com.flaringapp.data.task.executor;
 
-import java.io.File;
+import com.flaringapp.data.TaskParams;
 
 public interface TaskExecutor {
 
-    void execute(File root, int threadsCount);
+    void execute(TaskParams params);
 
 }

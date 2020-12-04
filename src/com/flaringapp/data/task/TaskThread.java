@@ -12,10 +12,14 @@ public class TaskThread extends Thread {
 
     private final FilesPool pool;
     private final DataHolder data;
+    private final long minFileSize;
+    private final String search;
 
-    public TaskThread(FilesPool pool, DataHolder data) {
+    public TaskThread(FilesPool pool, DataHolder data, long minFileSize, String search) {
         this.pool = pool;
         this.data = data;
+        this.minFileSize = minFileSize;
+        this.search = search;
     }
 
     @Override
@@ -54,5 +58,11 @@ public class TaskThread extends Thread {
             data.onNewFileFound();
         }
         data.recordFileSize(file.length());
+        if (file.length() > minFileSize) {
+            data.onNewFileOverSizeFound();
+        }
+        if (file.getName().contains(search)) {
+            data.onNewFileSearchMatchFound();
+        }
     }
 }
