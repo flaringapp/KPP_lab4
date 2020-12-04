@@ -1,4 +1,4 @@
-package com.flaringapp.task.pool;
+package com.flaringapp.data.task.pool;
 
 import com.sun.istack.internal.Nullable;
 

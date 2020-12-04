@@ -1,7 +1,7 @@
-package com.flaringapp.task.executor;
+package com.flaringapp.data.task.executor;
 
-import com.flaringapp.task.DataHolder;
-import com.flaringapp.monitor.ThreadState;
+import com.flaringapp.data.task.DataHolder;
+import com.flaringapp.data.monitor.ThreadState;
 
 public interface TaskConsumer {
     void onTaskUpdate(ThreadState state);

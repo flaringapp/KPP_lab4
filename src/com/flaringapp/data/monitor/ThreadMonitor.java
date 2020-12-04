@@ -1,4 +1,4 @@
-package com.flaringapp.monitor;
+package com.flaringapp.data.monitor;
 
 import com.sun.istack.internal.Nullable;
 

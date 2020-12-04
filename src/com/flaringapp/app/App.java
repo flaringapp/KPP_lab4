@@ -1,10 +1,10 @@
-package com.flaringapp;
+package com.flaringapp.app;
 
-import com.flaringapp.monitor.ThreadState;
-import com.flaringapp.task.DataHolder;
-import com.flaringapp.task.executor.TaskConsumer;
-import com.flaringapp.task.executor.TaskExecutor;
-import com.flaringapp.task.executor.TaskExecutorImpl;
+import com.flaringapp.data.monitor.ThreadState;
+import com.flaringapp.data.task.DataHolder;
+import com.flaringapp.data.task.executor.TaskConsumer;
+import com.flaringapp.data.task.executor.TaskExecutor;
+import com.flaringapp.data.task.executor.TaskExecutorImpl;
 
 import java.io.File;
 import java.util.Scanner;
@@ -20,7 +20,7 @@ public class App {
         scanner = new Scanner(System.in);
     }
 
-    void run() {
+    public void run() {
         startTime = System.currentTimeMillis();
 
         execute();

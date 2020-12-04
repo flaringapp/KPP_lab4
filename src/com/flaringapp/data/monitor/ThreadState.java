@@ -1,4 +1,4 @@
-package com.flaringapp.monitor;
+package com.flaringapp.data.monitor;
 
 public class ThreadState {
     private final String name;

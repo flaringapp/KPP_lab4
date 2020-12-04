@@ -1,4 +1,4 @@
-package com.flaringapp.task;
+package com.flaringapp.data.task;
 
 public class SizeCounter {
 

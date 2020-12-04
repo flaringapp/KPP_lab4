@@ -1,6 +1,6 @@
-package com.flaringapp.task;
+package com.flaringapp.data.task;
 
-import com.flaringapp.task.pool.FilesPool;
+import com.flaringapp.data.task.pool.FilesPool;
 
 import java.io.File;
 import java.util.Arrays;

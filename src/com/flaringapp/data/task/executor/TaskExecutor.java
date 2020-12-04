@@ -1,4 +1,4 @@
-package com.flaringapp.task.executor;
+package com.flaringapp.data.task.executor;
 
 import java.io.File;
 

@@ -1,11 +1,11 @@
-package com.flaringapp.task.executor;
+package com.flaringapp.data.task.executor;
 
-import com.flaringapp.task.DataHolder;
-import com.flaringapp.task.pool.FilesPool;
-import com.flaringapp.task.pool.FilesPoolImpl;
-import com.flaringapp.task.TaskThread;
-import com.flaringapp.monitor.ThreadMonitor;
-import com.flaringapp.task.pool.SynchronizedFilesPool;
+import com.flaringapp.data.task.DataHolder;
+import com.flaringapp.data.task.pool.FilesPool;
+import com.flaringapp.data.task.pool.FilesPoolImpl;
+import com.flaringapp.data.task.TaskThread;
+import com.flaringapp.data.monitor.ThreadMonitor;
+import com.flaringapp.data.task.pool.SynchronizedFilesPool;
 
 import java.io.File;
 import java.util.ArrayList;
